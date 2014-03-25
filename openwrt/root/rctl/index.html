@@ -1,0 +1,69 @@
+<html>
+<head>
+<style>
+div.open_button > button {
+	width: 100px;
+	height: 50px;
+}
+</style>
+<title>Villota</title>
+</head>
+<body>
+<div class="pw_input">
+	<input placeholder="Clave" type="text" id="pw_input" />
+        <button onclick="forget_pw()" id="forget_pw">Olvidar clave</button></br>
+</div>
+</br>
+<div class="open_button">
+	<button onclick="open_door()">Abrir puerta</button>
+</div>
+<script>
+function open_door()
+{
+	var pw = localStorage.getItem("pw");
+	if(pw == null) {
+		pw_input_el = document.getElementById("pw_input");
+		if(pw_input_el.value != "") {
+			localStorage.setItem("pw", pw_input_el.value);
+			pw = pw_input_el.value;
+		}
+	}
+
+	if(pw != null) {
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if(xmlhttp.readyState == 4 && xmlhttp.status == 404)  {
+				forget_pw();
+		  		alert(xmlhttp.responseText);
+			}
+		}
+		xmlhttp.open("GET","/rctl/"+pw+"/open", true);
+		xmlhttp.send();
+	}
+	draw_pw_input();
+}
+
+function forget_pw()
+{
+	pw_input_el = document.getElementById("pw_input");
+	pw_input_el.value = "";
+	localStorage.removeItem("pw");
+	draw_pw_input();
+}
+
+function draw_pw_input()
+{
+	pw_input_el = document.getElementById("pw_input");
+	forget_pw_el = document.getElementById("forget_pw");
+	if(localStorage.getItem("pw") == null) {
+		pw_input_el.style.visibility = 'visible';
+		forget_pw_el.disabled = true;
+	 } else {
+		pw_input_el.style.visibility = 'hidden';
+		forget_pw_el.disabled = false;
+	}
+}
+draw_pw_input();
+</script>
+</body>
+</html>

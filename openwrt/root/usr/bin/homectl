@@ -1,0 +1,8 @@
+#!/bin/sh
+
+stty -F /dev/ttyACM0 9600 raw
+if [ "$1" == "open" ]; then
+	echo "70" > /dev/ttyACM0
+	sleep 3;
+	echo "150" > /dev/ttyACM0
+fi
