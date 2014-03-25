@@ -1,21 +1,33 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<style>
-div.open_button > button {
-	width: 100px;
-	height: 50px;
-}
-</style>
-<title>Villota</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<title>Villota 780</title>
 </head>
 <body>
-<div class="pw_input">
-	<input placeholder="Clave" type="text" id="pw_input" />
-        <button onclick="forget_pw()" id="forget_pw">Olvidar clave</button></br>
+<div class="container-fluid">
+<div class="row" style="background-color: rgb(100,100,100);">&nbsp;</div>
+<h1>Villota 780</h1>
+<div class="row">
+<div class="col-xs-6 col-md-4 col-xs-offset-3">
+        <div class="form-group form-inline">
+	<input class="form-control" placeholder="Clave" type="password" id="pw_input" />
+        <button class="btn btn-danger btn-sm" onclick="forget_pw()" id="forget_pw">Olvidar clave</button></br>
+	</div>
+	<button class="btn btn-primary btn-lg" onclick="open_door()">Abrir puerta</button>
+</div>
 </div>
 </br>
-<div class="open_button">
-	<button onclick="open_door()">Abrir puerta</button>
+<div class="row">
+<div class="col-xs-6">
+	<p>Astroza Ltda (C) 2014</p>
+</div>
+</div>
+<div class="row" style="background-color: rgb(100,100,100);">&nbsp;</div>
 </div>
 <script>
 function open_door()
@@ -56,10 +68,11 @@ function draw_pw_input()
 	pw_input_el = document.getElementById("pw_input");
 	forget_pw_el = document.getElementById("forget_pw");
 	if(localStorage.getItem("pw") == null) {
-		pw_input_el.style.visibility = 'visible';
+		pw_input_el.disabled = false;
 		forget_pw_el.disabled = true;
 	 } else {
-		pw_input_el.style.visibility = 'hidden';
+		pw_input_el.value = "(Guardada)";
+		pw_input_el.disabled = true;
 		forget_pw_el.disabled = false;
 	}
 }
